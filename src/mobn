@@ -5,6 +5,7 @@ from subprocess import Popen, PIPE, STDOUT
 def branch():
     process = Popen(['git branch'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
+    return output
 
 def create_branch(name):
     process = Popen(['git checkout -b {}'.format(name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
@@ -27,6 +28,9 @@ if args.command == "say":
     say(' '.join(args.arguments))
 elif args.command == "new":
     new(args.arguments[0])
+elif args.command == "next":
+    # next()
+    pass
 
 if __name__ == '__main__':
     pass
