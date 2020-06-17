@@ -10,9 +10,14 @@ def create_branch(name):
     output, _ = process.communicate()
     print(str(output.decode("utf-8")))
 
+def say(phrase):
+    process = Popen(['say {}'.format(phrase)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+    print(str(output.decode("utf-8")))
+
 
 if __name__ == '__main__':
-    create_branch("testing")
+    say("huhuhuhuhuhuhuhuh")
 #
 # def push(self):
 #     """git push"""
