@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import argparse
+import time
 from subprocess import Popen, PIPE, STDOUT
 
 
@@ -43,6 +44,8 @@ def pull():
     output, _ = process.communicate()
 
 def next():
+    time.sleep(5)
+    say('Time up!')
     add_all()
     commit_all()
     push_all()
@@ -56,6 +59,7 @@ def start(branchName):
     pull()
     print("pulling workstream...")
     say("Time start!")
+    next()    
 
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
