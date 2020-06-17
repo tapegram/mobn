@@ -18,9 +18,28 @@ def say(phrase):
 def new(branch_name):
     create_branch(branch_name)
 
+def add_all():
+    process = Popen(['git add .'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
+def commit_all(message="wip"):
+    process = Popen(['git commit -m {}'.format(message)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
+def push_all():
+    process = Popen(['git push origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
+def next():
+    add_all()
+    commit_all()
+    push_all()
+    print("pushed to branch!")
+
+
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
 parser.add_argument('command', help='the command (eg say, new)')
-parser.add_argument('arguments', nargs='+',
+parser.add_argument('arguments', nargs='*',
                     help='arguments to the command (eg huhuhu)')
 args = parser.parse_args()
 
@@ -29,8 +48,7 @@ if args.command == "say":
 elif args.command == "new":
     new(args.arguments[0])
 elif args.command == "next":
-    # next()
-    pass
+    next()
 
 if __name__ == '__main__':
     pass
