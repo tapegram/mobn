@@ -2,57 +2,21 @@
 
 import argparse
 import time
-from subprocess import Popen, PIPE, STDOUT
 
+from src.git import (
+    create_branch,
+    push_origin_upstream,
+    checkout,
+    add_all,
+    commit_all,
+    push_all,
+    delete_branch,
+    pull,
+)
+from src.say import say
 
 BRANCH_NAME = 'matcha'
 
-
-def branch():
-    process = Popen(['git branch'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-    return output
-
-def create_branch(name):
-    process = Popen(['git checkout -b {}'.format(name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def delete_branch(name):
-    process = Popen(['git branch -D {}'.format(name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-    return output
-
-def say(phrase):
-    process = Popen(['say {}'.format(phrase)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def new(branch_name):
-    create_branch(branch_name)
-    next()
-
-def add_all():
-    process = Popen(['git add .'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def commit_all(message="wip"):
-    process = Popen(['git commit -m {}'.format(message)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def push_all():
-    process = Popen(['git push origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def push_origin_upstream(branch_name):
-    process = Popen(['git push -u origin {}'.format(branch_name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def checkout(branch):
-    process = Popen(['git checkout {}'.format(branch)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
-
-def pull():
-    process = Popen(['git pull origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-    output, _ = process.communicate()
 
 def create_pr(branch_name):
     """
@@ -65,6 +29,10 @@ def create_pr(branch_name):
 
     # cleanup
     checkout("master")
+
+def new(branch_name):
+    create_branch(branch_name)
+    next()
 
 def next():
     say("Time start!")
