@@ -5,7 +5,7 @@ workflow "auto-pr" {
 }
 
 action "create-pr" {
-    uses = "smartinspereira/auto-create-pr-action@master"
+    uses = "tapegram/mobn@master"
     secrets = ["GITHUB_TOKEN"]
     env = {
         BRANCH_PREFIX = ""
