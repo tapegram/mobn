@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import argparse
 import time
 from subprocess import Popen, PIPE, STDOUT
@@ -41,6 +42,10 @@ def push_all():
     process = Popen(['git push origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
 
+def push_origin_upstream(branch_name):
+    process = Popen(['git push -u origin {}'.format(branch_name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
 def checkout(branch):
     process = Popen(['git checkout {}'.format(branch)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
@@ -48,6 +53,18 @@ def checkout(branch):
 def pull():
     process = Popen(['git pull origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
+
+def create_pr(branch_name):
+    """
+    Disclaimer: doesnt actually create a pr yet haha
+    """
+    create_branch(branch_name)
+    push_origin_upstream(branch_name)
+
+    # todo, create a PR here
+
+    # cleanup
+    checkout("master")
 
 def next():
     say("Time start!")
@@ -69,21 +86,13 @@ def start(branchName):
     print("pulling workstream...")
     next()
 
-def done(branchName, commitMessage):
-    """
-    git add .
-    git commit -m 'latest changes ${git status}'
-    git push
-    git checkout -b 'new branch'
-    git branch -D 'matcha'
-
-
-    :param branchName:
-    :param commitMessage:
-    :return:
-    """
-    add .
-
+def done(branchName):
+    add_all()
+    commit_all()
+    push_all()
+    create_pr(branchName)
+    delete_branch(BRANCH_NAME)
+    pull()
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
 parser.add_argument('command', help='the command (eg say, new)')
@@ -95,6 +104,8 @@ if args.command == "new":
     new(BRANCH_NAME)
 elif args.command == "continue":
     start(BRANCH_NAME)
+elif args.command == "done":
+    done(args.arguments[0])
 
 
 if __name__ == '__main__':
