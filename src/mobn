@@ -30,11 +30,28 @@ def push_all():
     process = Popen(['git push origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
 
+def checkout(branch):
+    process = Popen(['git checkout {}'.format(branch)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
+def pull():
+    process = Popen(['git pull origin'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+
 def next():
     add_all()
     commit_all()
     push_all()
     print("pushed to branch!")
+
+def start(branchName):
+    checkout("master")
+    pull()
+    print("pulling master...")
+    checkout(branchName)
+    pull()
+    print("pulling workstream...")
+    say("Time start!")
 
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
@@ -49,6 +66,8 @@ elif args.command == "new":
     new(args.arguments[0])
 elif args.command == "next":
     next()
+elif args.command == "continue":
+    start(args.arguments[0])
 
 if __name__ == '__main__':
     pass
