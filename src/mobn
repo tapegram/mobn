@@ -16,6 +16,11 @@ def create_branch(name):
     process = Popen(['git checkout -b {}'.format(name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
 
+def delete_branch(name):
+    process = Popen(['git branch -D {}'.format(name)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
+    output, _ = process.communicate()
+    return output
+
 def say(phrase):
     process = Popen(['say {}'.format(phrase)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
@@ -53,7 +58,7 @@ def next():
     push_all()
     print("pushed to branch!")
     checkout("master")
-    # delete_branch(BRANCH_NAME)
+    delete_branch(BRANCH_NAME)
 
 def start(branchName):
     checkout("master")
@@ -71,12 +76,8 @@ parser.add_argument('arguments', nargs='*',
                     help='arguments to the command (eg huhuhu)')
 args = parser.parse_args()
 
-if args.command == "say":
-    say(' '.join(args.arguments))
-elif args.command == "new":
+if args.command == "new":
     new(BRANCH_NAME)
-elif args.command == "next":
-    next()
 elif args.command == "continue":
     start(BRANCH_NAME)
 
