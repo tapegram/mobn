@@ -69,6 +69,21 @@ def start(branchName):
     print("pulling workstream...")
     next()
 
+def done(branchName, commitMessage):
+    """
+    git add .
+    git commit -m 'latest changes ${git status}'
+    git push
+    git checkout -b 'new branch'
+    git branch -D 'matcha'
+
+
+    :param branchName:
+    :param commitMessage:
+    :return:
+    """
+    add .
+
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
 parser.add_argument('command', help='the command (eg say, new)')
