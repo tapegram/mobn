@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import argparse
 from subprocess import Popen, PIPE, STDOUT
 
 def branch():
@@ -17,15 +17,15 @@ def say(phrase):
     output, _ = process.communicate()
     print(str(output.decode("utf-8")))
 
+parser = argparse.ArgumentParser(description='mobn git handoff tool')
+parser.add_argument('command',)
+parser.add_argument('argumentss', metavar='say',
+                    help='')
+args = parser.parse_args()
+
+if args.command == "say":
+    say("huhuhu")
 
 if __name__ == '__main__':
-    say("huhuhuhuhuhuhuhuh")
-#
-# def push(self):
-#     """git push"""
-#     if self.git_exec:
-#         process = Popen([self.git_exec, ' git push'], stdin=PIPE, stdout=PIPE, stderr=STDOUT, )
-#     else:
-#         process = Popen(['git push'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-#     output, _ = process.communicate()
-#     return str("Push completed.{}".format(str(output.decode("utf-8"))))
+    pass
+    # say("huhuhuhuhuhuhuhuh")
