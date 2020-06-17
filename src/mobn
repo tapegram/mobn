@@ -18,13 +18,13 @@ def say(phrase):
     print(str(output.decode("utf-8")))
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
-parser.add_argument('command',)
-parser.add_argument('argumentss', metavar='say',
-                    help='')
+parser.add_argument('command', help='the command (eg say)')
+parser.add_argument('arguments', nargs='+',
+                    help='arguments to the command (eg huhuhu)')
 args = parser.parse_args()
 
 if args.command == "say":
-    say("huhuhu")
+    say(' '.join(args.arguments))
 
 if __name__ == '__main__':
     pass
