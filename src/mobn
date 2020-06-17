@@ -2,6 +2,10 @@
 import argparse
 from subprocess import Popen, PIPE, STDOUT
 
+
+BRANCH_NAME = 'matcha'
+
+
 def branch():
     process = Popen(['git branch'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
     output, _ = process.communicate()
@@ -63,12 +67,12 @@ args = parser.parse_args()
 if args.command == "say":
     say(' '.join(args.arguments))
 elif args.command == "new":
-    new(args.arguments[0])
+    new(BRANCH_NAME)
 elif args.command == "next":
     next()
 elif args.command == "continue":
-    start(args.arguments[0])
+    start(BRANCH_NAME)
+
 
 if __name__ == '__main__':
     pass
-    # say("huhuhuhuhuhuhuhuh")
