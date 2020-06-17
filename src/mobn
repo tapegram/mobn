@@ -22,6 +22,7 @@ def say(phrase):
 
 def new(branch_name):
     create_branch(branch_name)
+    next()
 
 def add_all():
     process = Popen(['git add .'], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
@@ -44,12 +45,15 @@ def pull():
     output, _ = process.communicate()
 
 def next():
-    time.sleep(5)
+    say("Time start!")
+    time.sleep(10 * 60)
     say('Time up!')
     add_all()
     commit_all()
     push_all()
     print("pushed to branch!")
+    checkout("master")
+    # delete_branch(BRANCH_NAME)
 
 def start(branchName):
     checkout("master")
@@ -58,8 +62,7 @@ def start(branchName):
     checkout(branchName)
     pull()
     print("pulling workstream...")
-    say("Time start!")
-    next()    
+    next()
 
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
