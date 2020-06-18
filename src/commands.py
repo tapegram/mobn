@@ -32,8 +32,7 @@ def create_pr(branch_name):
 def new(branch_name):
     return [
         create_branch(branch_name),
-        next(),
-    ]
+    ] + next()
 
 
 def next():
