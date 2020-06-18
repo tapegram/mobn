@@ -22,7 +22,7 @@ def new(branch_name):
 def next(workstream):
     return [
         say("Time start!"),
-        sleep(10 * 60),
+        sleep(5),
         say('Time up!'),
         add_all(),
         commit_all(),
