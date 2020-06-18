@@ -93,7 +93,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(deleteBranchEffect, GitEffect)
         self.assertEqual(
             deleteBranchEffect.command,
-            "git branch -D matcha"
+            "git branch -d matcha"
         )
 
     def test_start(self):
@@ -220,7 +220,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(deleteBranchEffect, GitEffect)
         self.assertEqual(
             deleteBranchEffect.command,
-            "git branch -D matcha"
+            "git branch -d matcha"
         )
 
         self.assertIsInstance(pullEffect, GitEffect)
