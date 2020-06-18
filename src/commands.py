@@ -14,25 +14,10 @@ from src.say import say
 from src.sleep import sleep
 
 
-def create_pr(branch_name):
-    """
-    Disclaimer: doesnt actually create a pr yet haha
-    """
-    return [
-        create_branch(branch_name),
-        push_origin_upstream(branch_name),
-
-        # todo, create a PR here
-
-        # cleanup
-        checkout("master"),
-    ]
-
-
 def new(branch_name):
     return [
         create_branch(branch_name),
-    ] + next()
+    ]
 
 
 def next():
@@ -57,7 +42,7 @@ def start(branchName):
         checkout(branchName),
         pull(),
         output("pulling workstream..."),
-    ] + next()
+    ]
 
 
 def done(branchName):
@@ -65,9 +50,14 @@ def done(branchName):
         add_all(),
         commit_all(),
         push_all(),
-    ] + create_pr(branchName) + [
+        # Create PR
+        create_branch(branchName),
+        push_origin_upstream(branchName),
+
+        # todo, create a PR here
+
+        # cleanup
+        checkout("master"),
         delete_branch(get_workstream_name()),
         pull(),
     ]
-
-

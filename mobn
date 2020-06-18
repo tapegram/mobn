@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from src.commands import new, start, done
+from src.commands import new, start, done, next
 from src.config import get_workstream_name
 
 parser = argparse.ArgumentParser(
@@ -27,9 +27,15 @@ def runAll(effects):
 
 
 if args.command == "new":
-    runAll(new(get_workstream_name()))
+    runAll(
+        new(get_workstream_name()) +
+        next()
+    )
 elif args.command == "continue":
-    runAll(start(get_workstream_name()))
+    runAll(
+        start(get_workstream_name()) +
+        next()
+    )
 elif args.command == "done":
     runAll(done(args.arguments[0]))
 elif args.command == "hello":
