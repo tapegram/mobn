@@ -1,6 +1,6 @@
 import unittest
 
-from src.commands import new, startTurn, start, done
+from src.commands import new, start_turn, start, done
 from src.git import GitEffect
 from src.output import OutputEffect
 from src.say import VoiceEffect
@@ -24,7 +24,7 @@ class TestCommands(unittest.TestCase):
         )
 
     def test_next(self):
-        results = startTurn("matcha")
+        results = start_turn("matcha")
         self.assertEqual(
             len(results),
             9

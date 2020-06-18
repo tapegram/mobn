@@ -18,7 +18,7 @@ def new(branch_name):
     ]
 
 
-def startTurn(workstream):
+def start_turn(workstream):
     return [
         say("Time start!"),
         sleep(10 * 60),
