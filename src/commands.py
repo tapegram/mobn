@@ -12,15 +12,16 @@ from src.say import say
 from src.sleep import sleep
 
 
-def new(branch_name):
+def new(workstream):
     return [
-        create_branch(branch_name),
+        create_branch(workstream),
     ]
 
 
 def start_turn(workstream):
     return [
         say("Time start!"),
+        output("Timer started - lets get mobbing!"),
         sleep(10 * 60),
         say('Time up!'),
         add_all(),

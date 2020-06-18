@@ -23,15 +23,16 @@ class TestCommands(unittest.TestCase):
             "git checkout -b branchName"
         )
 
-    def test_next(self):
+    def test_start_turn(self):
         results = start_turn("matcha")
         self.assertEqual(
             len(results),
-            9
+            10
         )
 
         (
             sayTimeStartEffect,
+            timerStartOuputEffect,
             sleepEffect,
             sayTimeUpEffect,
             addAllEffect,
@@ -46,6 +47,12 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             sayTimeStartEffect.phrase,
             "Time start!"
+        )
+
+        self.assertIsInstance(timerStartOuputEffect, OutputEffect)
+        self.assertEqual(
+            timerStartOuputEffect.message,
+            "Timer started - lets get mobbing!"
         )
 
         self.assertIsInstance(sleepEffect, SleepEffect)
