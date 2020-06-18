@@ -15,9 +15,10 @@ export MOBN_WORKSTREAM_NAME=matcha-mob
 # Usage
 
 ```
-mobn new  # start a new work stream
+mobn new       # start a new work stream
 mobn continue  # start your turn on an already created work stream
-mobn done  # ready to create PR
+mobn done      # ready to create PR
+mobn help      # for help!
 ```
 
 # Dev requirements
