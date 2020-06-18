@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from src.commands import new, start, done, next
+from src.commands import new, start, done, startTurn
 from src.config import get_workstream_name
 
 parser = argparse.ArgumentParser(
@@ -32,7 +32,7 @@ if args.command == "new" or args.command == "start":
     else:
         runAll(
             new(workstream_name) +
-            next(workstream_name)
+            startTurn(workstream_name)
         )
 elif args.command == "continue":
     workstream_name = get_workstream_name().run()
@@ -41,7 +41,7 @@ elif args.command == "continue":
     else:
         runAll(
             start(workstream_name) +
-            next(workstream_name)
+            startTurn(workstream_name)
         )
 
 elif args.command == "done":
