@@ -28,7 +28,7 @@ def add_all():
 
 
 def commit_all(message="wip"):
-    return GitEffect("git comit -m {}".format(message))
+    return GitEffect("git commit -m {}".format(message))
 
 
 def push_all():

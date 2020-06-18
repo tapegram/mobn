@@ -57,8 +57,7 @@ def start(branchName):
         checkout(branchName),
         pull(),
         output("pulling workstream..."),
-        next(),
-    ]
+    ] + next()
 
 
 def done(branchName):
@@ -66,7 +65,7 @@ def done(branchName):
         add_all(),
         commit_all(),
         push_all(),
-        create_pr(branchName),
+    ] + create_pr(branchName) + [
         delete_branch(get_workstream_name()),
         pull(),
     ]
