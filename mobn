@@ -11,9 +11,16 @@ parser.add_argument('arguments', nargs='*',
                     help='arguments to the command (eg huhuhu)')
 args = parser.parse_args()
 
+
+
+def runAll(effects):
+    for effect in effects:
+        effect.run()
+
+
 if args.command == "new":
-    new(get_workstream_name())
+    runAll(new(get_workstream_name()))
 elif args.command == "continue":
-    start(get_workstream_name())
+    runAll(start(get_workstream_name()))
 elif args.command == "done":
-    done(args.arguments[0])
+    runAll(done(args.arguments[0]))
