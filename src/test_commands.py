@@ -1,6 +1,6 @@
 import unittest
 
-from src.commands import new, start_turn, start, done
+from src.commands import new, start_turn, load_workstream, finish
 from src.git import GitEffect
 from src.output import OutputEffect
 from src.say import VoiceEffect
@@ -97,7 +97,7 @@ class TestCommands(unittest.TestCase):
         )
 
     def test_start(self):
-        results = start("branchName")
+        results = load_workstream("branchName")
         self.assertEqual(
             len(results),
             6
@@ -143,7 +143,7 @@ class TestCommands(unittest.TestCase):
         )
 
     def test_done(self):
-        results = done("matcha", "branchName")
+        results = finish("matcha", "branchName")
         self.assertEqual(
             len(results),
             12

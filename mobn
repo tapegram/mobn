@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from src.commands import new, start, done, start_turn
+from src.commands import new, load_workstream, finish, start_turn
 from src.config import get_workstream_name
 
 parser = argparse.ArgumentParser(
@@ -40,7 +40,7 @@ elif args.command == "continue":
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     else:
         runAll(
-            start(workstream_name) +
+            load_workstream(workstream_name) +
             start_turn(workstream_name)
         )
 
@@ -49,7 +49,7 @@ elif args.command == "done":
     if not workstream_name:
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     else:
-        runAll(done(workstream_name, args.arguments[0]))
+        runAll(finish(workstream_name, args.arguments[0]))
 
 elif args.command == "workstream":
     print(get_workstream_name().run())

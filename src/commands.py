@@ -32,7 +32,7 @@ def start_turn(workstream):
     ]
 
 
-def start(branchName):
+def load_workstream(branchName):
     return [
         checkout("master"),
         pull(),
@@ -43,7 +43,7 @@ def start(branchName):
     ]
 
 
-def done(workstream, branchName):
+def finish(workstream, branchName):
     return [
         output("pushing everything..."),
         add_all(),
