@@ -20,23 +20,35 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-
 def runAll(effects):
     for effect in effects:
         effect.run()
 
 
-if args.command == "new":
-    runAll(
-        new(get_workstream_name()) +
-        next()
-    )
+if args.command == "new" or args.command == "start":
+    workstream_name = get_workstream_name().run()
+    if not workstream_name:
+        print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+    else:
+        runAll(
+            new(workstream_name) +
+            next()
+        )
 elif args.command == "continue":
-    runAll(
-        start(get_workstream_name()) +
-        next()
-    )
+    workstream_name = get_workstream_name().run()
+    if not workstream_name:
+        print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+    else:
+        runAll(
+            start(workstream_name) +
+            next()
+        )
+
 elif args.command == "done":
     runAll(done(args.arguments[0]))
+
+elif args.command == "workstream":
+    print(get_workstream_name().run())
+
 elif args.command == "hello":
     print("Hello, World")
