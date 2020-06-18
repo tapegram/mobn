@@ -1,67 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import time
 
-from src.git import (
-    create_branch,
-    push_origin_upstream,
-    checkout,
-    add_all,
-    commit_all,
-    push_all,
-    delete_branch,
-    pull,
-)
-from src.say import say
-
-BRANCH_NAME = 'matcha'
-
-
-def create_pr(branch_name):
-    """
-    Disclaimer: doesnt actually create a pr yet haha
-    """
-    create_branch(branch_name)
-    push_origin_upstream(branch_name)
-
-    # todo, create a PR here
-
-    # cleanup
-    checkout("master")
-
-def new(branch_name):
-    create_branch(branch_name)
-    next()
-
-def next():
-    say("Time start!")
-    time.sleep(10 * 60)
-    say('Time up!')
-    add_all()
-    commit_all()
-    push_all()
-    print("pushed to branch!")
-    checkout("master")
-    delete_branch(BRANCH_NAME)
-
-def start(branchName):
-    checkout("master")
-    pull()
-    print("pulling master...")
-    checkout(branchName)
-    pull()
-    print("pulling workstream...")
-    next()
-
-def done(branchName):
-    add_all()
-    commit_all()
-    push_all()
-    create_pr(branchName)
-    delete_branch(BRANCH_NAME)
-    pull()
-
+from src.commands import new, start, done
+from src.config import get_workstream_name
 
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
 parser.add_argument('command', help='the command (eg say, new)')
@@ -70,8 +12,8 @@ parser.add_argument('arguments', nargs='*',
 args = parser.parse_args()
 
 if args.command == "new":
-    new(BRANCH_NAME)
+    new(get_workstream_name())
 elif args.command == "continue":
-    start(BRANCH_NAME)
+    start(get_workstream_name())
 elif args.command == "done":
     done(args.arguments[0])
