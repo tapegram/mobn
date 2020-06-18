@@ -45,6 +45,9 @@ elif args.command == "continue":
         )
 
 elif args.command == "done":
+    workstream_name = get_workstream_name().run()
+    if not workstream_name:
+        print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     runAll(done(args.arguments[0]))
 
 elif args.command == "workstream":
