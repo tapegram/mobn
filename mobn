@@ -5,10 +5,19 @@ import argparse
 from src.commands import new, start, done
 from src.config import get_workstream_name
 
-parser = argparse.ArgumentParser(description='mobn git handoff tool')
-parser.add_argument('command', help='the command (eg say, new)')
-parser.add_argument('arguments', nargs='*',
-                    help='arguments to the command (eg huhuhu)')
+parser = argparse.ArgumentParser(
+    description='mobn git handoff tool'
+)
+parser.add_argument(
+    'command',
+    help='the command (eg say, new)'
+)
+parser.add_argument(
+    'arguments',
+    nargs='*',
+    help='arguments to the command'
+)
+
 args = parser.parse_args()
 
 
