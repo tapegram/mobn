@@ -15,3 +15,27 @@ mobn new  # start a new work stream
 mobn continue  # start your turn on an already created work stream
 mobn done  # ready to create PR
 ```
+
+# Dev requirements
+
+Make sure you have pip3
+```
+python3 -m pip install --upgrade pip
+```
+And virtualenv
+```
+sudo pip3 install virtualenv
+```
+
+# Create a virtual env (if you haven't already)
+```
+virtualenv -p /usr/bin/python3 venv
+```
+
+# Install dependencies
+```
+pip install -r requirements.txt
+```
+
+# Running tests
+From your virtual env run `pytest`
