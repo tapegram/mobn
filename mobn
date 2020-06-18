@@ -53,5 +53,15 @@ elif args.command == "done":
 elif args.command == "workstream":
     print(get_workstream_name().run())
 
+elif args.command == "help":
+    print("""
+    mobn new -> create a new mob session on your configured workstream
+    mobn start -> alias for `mobn new`
+    mobn continue -> pulls the current workstream onto your local machine and sets a timer
+    mobn done <new branch name> -> puts all of the worksteam's commits onto a new branch so you can create a PR.
+    mobn hello -> hello, world!
+    mobn help -> you are here!
+    """)
+
 elif args.command == "hello":
     print("Hello, World")
