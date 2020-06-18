@@ -7,6 +7,10 @@ A tool for mob programming.
 git clone git@github.com:tapegram/mobn.git
 ln -s <PATH_TO_MOBN>/mobn /usr/local/bin/mobn
 ```
+Set up your preferred workstream via an environment variable. For example.
+```
+export MOBN_WORKSTREAM_NAME=matcha-mob
+```
 
 # Usage
 
