@@ -62,6 +62,7 @@ def done(branchName):
     delete_branch(BRANCH_NAME)
     pull()
 
+
 parser = argparse.ArgumentParser(description='mobn git handoff tool')
 parser.add_argument('command', help='the command (eg say, new)')
 parser.add_argument('arguments', nargs='*',
@@ -74,7 +75,3 @@ elif args.command == "continue":
     start(BRANCH_NAME)
 elif args.command == "done":
     done(args.arguments[0])
-
-
-if __name__ == '__main__':
-    pass
