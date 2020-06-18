@@ -32,7 +32,7 @@ if args.command == "new" or args.command == "start":
     else:
         runAll(
             new(workstream_name) +
-            next()
+            next(workstream_name)
         )
 elif args.command == "continue":
     workstream_name = get_workstream_name().run()
@@ -41,14 +41,15 @@ elif args.command == "continue":
     else:
         runAll(
             start(workstream_name) +
-            next()
+            next(workstream_name)
         )
 
 elif args.command == "done":
     workstream_name = get_workstream_name().run()
     if not workstream_name:
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
-    runAll(done(args.arguments[0]))
+    else:
+        runAll(done(workstream_name, args.arguments[0]))
 
 elif args.command == "workstream":
     print(get_workstream_name().run())

@@ -20,7 +20,7 @@ def new(branch_name):
     ]
 
 
-def next():
+def next(workstream):
     return [
         say("Time start!"),
         sleep(10 * 60),
@@ -30,7 +30,7 @@ def next():
         push_all(),
         output("pushed to branch!"),
         checkout("master"),
-        delete_branch(get_workstream_name()),
+        delete_branch(workstream),
     ]
 
 
@@ -45,7 +45,7 @@ def start(branchName):
     ]
 
 
-def done(branchName):
+def done(worksteam, branchName):
     return [
         add_all(),
         commit_all(),
@@ -58,6 +58,6 @@ def done(branchName):
 
         # cleanup
         checkout("master"),
-        delete_branch(get_workstream_name()),
+        delete_branch(worksteam),
         pull(),
     ]

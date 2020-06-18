@@ -24,7 +24,7 @@ class TestCommands(unittest.TestCase):
         )
 
     def test_next(self):
-        results = next()
+        results = next("matcha")
         self.assertEqual(
             len(results),
             9
@@ -143,7 +143,7 @@ class TestCommands(unittest.TestCase):
         )
 
     def test_done(self):
-        results = done("branchName")
+        results = done("matcha", "branchName")
         self.assertEqual(
             len(results),
             8
