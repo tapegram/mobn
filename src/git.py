@@ -8,6 +8,7 @@ class GitEffect(object):
     def run(self):
         process = Popen([self.command], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
         output, _ = process.communicate()
+        print(output)
         return output
 
 
@@ -29,10 +30,6 @@ def add_all():
 
 def commit_all(message="wip"):
     return GitEffect("git commit -m \"{}\"".format(message))
-
-
-def push_all():
-    return GitEffect("git push origin")
 
 
 def push_origin_upstream(branch_name):

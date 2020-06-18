@@ -4,7 +4,6 @@ from src.git import (
     checkout,
     add_all,
     commit_all,
-    push_all,
     delete_branch,
     pull,
 )
@@ -26,7 +25,7 @@ def next(workstream):
         say('Time up!'),
         add_all(),
         commit_all(),
-        push_all(),
+        push_origin_upstream(workstream),
         output("pushed to branch!"),
         checkout("master"),
         delete_branch(workstream),
@@ -49,7 +48,8 @@ def done(workstream, branchName):
         output("pushing everything..."),
         add_all(),
         commit_all(),
-        push_all(),
+        push_origin_upstream(workstream),
+
         # Create PR
         output("putting it all on {}".format(branchName)),
         create_branch(branchName),

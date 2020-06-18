@@ -69,13 +69,13 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(commitAllEffect, GitEffect)
         self.assertEqual(
             commitAllEffect.command,
-            "git commit -m wip"
+            "git commit -m \"wip\""
         )
 
         self.assertIsInstance(pushAllEffect, GitEffect)
         self.assertEqual(
             pushAllEffect.command,
-            "git push origin"
+            "git push -u origin matcha"
         )
 
         self.assertIsInstance(outputEffect, OutputEffect)
@@ -179,13 +179,13 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(commitAllEffect, GitEffect)
         self.assertEqual(
             commitAllEffect.command,
-            "git commit -m wip"
+            "git commit -m \"wip\""
         )
 
         self.assertIsInstance(pushAllEffect, GitEffect)
         self.assertEqual(
             pushAllEffect.command,
-            "git push origin"
+            "git push -u origin matcha"
         )
 
         self.assertIsInstance(creatingBranchOutputEffect, OutputEffect)
