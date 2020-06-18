@@ -1,4 +1,3 @@
-from src.config import get_workstream_name
 from src.git import (
     create_branch,
     push_origin_upstream,
@@ -45,19 +44,24 @@ def start(branchName):
     ]
 
 
-def done(worksteam, branchName):
+def done(workstream, branchName):
     return [
+        output("pushing everything..."),
         add_all(),
         commit_all(),
         push_all(),
         # Create PR
+        output("putting it all on {}".format(branchName)),
         create_branch(branchName),
         push_origin_upstream(branchName),
 
         # todo, create a PR here
 
         # cleanup
+        output("cleaning up..."),
         checkout("master"),
-        delete_branch(worksteam),
+        delete_branch(workstream),
         pull(),
+
+        output("ready to open PR!"),
     ]

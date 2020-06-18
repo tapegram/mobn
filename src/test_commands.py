@@ -146,19 +146,29 @@ class TestCommands(unittest.TestCase):
         results = done("matcha", "branchName")
         self.assertEqual(
             len(results),
-            8
+            12
         )
 
         (
+            pushingEverythingOutputEffect,
             addAllEffect,
             commitAllEffect,
             pushAllEffect,
+            creatingBranchOutputEffect,
             createBranchEffect,
             pushOriginUpstreamEffect,
+            cleaningUpOutputEffect,
             checkoutMasterEffect,
             deleteBranchEffect,
             pullEffect,
+            successOutputEffect,
         ) = results
+
+        self.assertIsInstance(pushingEverythingOutputEffect, OutputEffect)
+        self.assertEqual(
+            pushingEverythingOutputEffect.message,
+            "pushing everything..."
+        )
 
         self.assertIsInstance(addAllEffect, GitEffect)
         self.assertEqual(
@@ -178,6 +188,12 @@ class TestCommands(unittest.TestCase):
             "git push origin"
         )
 
+        self.assertIsInstance(creatingBranchOutputEffect, OutputEffect)
+        self.assertEqual(
+            creatingBranchOutputEffect.message,
+            "putting it all on branchName"
+        )
+
         self.assertIsInstance(createBranchEffect, GitEffect)
         self.assertEqual(
             createBranchEffect.command,
@@ -187,6 +203,12 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             pushOriginUpstreamEffect.command,
             "git push -u origin branchName"
+        )
+
+        self.assertIsInstance(cleaningUpOutputEffect, OutputEffect)
+        self.assertEqual(
+            cleaningUpOutputEffect.message,
+            "cleaning up..."
         )
 
         self.assertIsInstance(checkoutMasterEffect, GitEffect)
@@ -205,4 +227,10 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             pullEffect.command,
             "git pull origin"
+        )
+
+        self.assertIsInstance(successOutputEffect, OutputEffect)
+        self.assertEqual(
+            successOutputEffect.message,
+            "ready to open PR!"
         )
