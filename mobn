@@ -3,7 +3,7 @@
 import argparse
 import json
 from src.commands import new, load_workstream, finish, start_turn, set_team, increment_turn
-from src.config import get_workstream_name, get_config, set_config
+from src.config import get_workstream_name, get_config, set_config, remove_config
 from src.say import say
 
 parser = argparse.ArgumentParser(
@@ -90,6 +90,7 @@ elif args.command == "done":
     if not workstream_name:
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     else:
+        remove_config(MOBN_CONFIG_PATH).run()
         runAll(finish(workstream_name, args.arguments[0]))
 
 elif args.command == "workstream":

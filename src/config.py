@@ -58,3 +58,15 @@ def set_config(path_to_config, config):
         path=path_to_config,
         config=config,
     )
+
+
+class RemoveConfigEffect(object):
+    def __init__(self, path):
+        self.path = path
+
+    def run(self):
+        os.remove(self.path)
+
+
+def remove_config(path_to_config):
+    return RemoveConfigEffect(path_to_config)
