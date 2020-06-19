@@ -4,6 +4,7 @@ import argparse
 import json
 from src.commands import new, load_workstream, finish, start_turn, set_team, increment_turn
 from src.config import get_workstream_name, get_config, set_config
+from src.say import say
 
 parser = argparse.ArgumentParser(
     description='mobn git handoff tool'
@@ -21,6 +22,14 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+MOBN_CONFIG_PATH = "mobn.config"
+
+
+class NullEffect(object):
+    def run(self):
+        pass
+
+
 def runAll(effects):
     for effect in effects:
         effect.run()
@@ -31,10 +40,26 @@ if args.command == "new" or args.command == "start":
     if not workstream_name:
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     else:
+        config = get_config("mobn.config").run()
+        config = increment_turn(config)
+        team = config["team_members"]
+        first_mobber = None
+        next_mobber = None
+        if len(team) > 1:
+            first_mobber = team[0]
+            next_mobber = team[1]
+
         runAll(
+            [
+                say("It is {}s turn".format(first_mobber))
+                if first_mobber else NullEffect()
+            ] +
+            [set_config(MOBN_CONFIG_PATH, config)] +
             new(workstream_name) +
             start_turn(workstream_name)
         )
+
+
 elif args.command == "continue":
     workstream_name = get_workstream_name().run()
     if not workstream_name:
@@ -63,22 +88,26 @@ elif args.command == "help":
     mobn done <new branch name> -> puts all of the worksteam's commits onto a new branch so you can create a PR.
     mobn team <space delimited list of names> -> let mobn know who is working in this mob
     mobn skip -> tells mobbing to skip to the next team member
+    mobn config -> show me the current config!
     mobn hello -> hello, world!
     mobn help -> you are here!
     """)
 
+elif args.command == "config":
+    config = get_config("mobn.config").run()
+    print(json.dumps(config, indent=4))
+
 elif args.command == "team":
     config = get_config("mobn.config").run()
     config = set_team(args.arguments, config)
-    set_config("mobn.config", config).run()
+    set_config(MOBN_CONFIG_PATH, config).run()
     print(json.dumps(config, indent=4))
 
 elif args.command == "skip":
     config = get_config("mobn.config").run()
     config = increment_turn(config)
-    set_config("mobn.config", config).run()
+    set_config(MOBN_CONFIG_PATH, config).run()
     print(json.dumps(config, indent=4))
-
 
 elif args.command == "hello":
     print("Hello, World")
