@@ -82,3 +82,25 @@ def increment_turn(config):
 
     new_config["turn"] = (new_config.get("turn", 0) + 1) % len(new_config["team_members"])
     return new_config
+
+
+def get_help():
+    return {
+        "mobn new": "create a new mob session on your configured workstream",
+        "mobn start": "alias for `mobn new`",
+        "mobn continue":"pulls the current workstream onto your local machine and sets a timer",
+        "mobn done <new branch name>":"puts all of the worksteam's commits onto a new branch so you can create a PR.",
+        "mobn team <space delimited list of names>":"let mobn know who is working in this mob",
+        "mobn skip":"tells mobbing to skip to the next team member",
+        "mobn config":"show me the current config!",
+        "mobn hello":"hello, world!",
+        "mobn help":"you are here!",
+    }
+
+
+def select_next_mobber(config):
+    team = config["team_members"]
+    next_mobber = None
+    if team:
+        next_mobber = team[config["turn"]]
+    return next_mobber

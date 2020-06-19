@@ -2,7 +2,7 @@
 
 import argparse
 import json
-from src.commands import new, load_workstream, finish, start_turn, set_team, increment_turn
+from src.commands import new, load_workstream, finish, start_turn, set_team, increment_turn, get_help, select_next_mobber
 from src.config import get_workstream_name, get_config, set_config, remove_config
 from src.say import say
 
@@ -41,13 +41,10 @@ if args.command == "new" or args.command == "start":
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
     else:
         config = get_config("mobn.config").run()
-        config = increment_turn(config)
         team = config["team_members"]
-        first_mobber = None
-        next_mobber = None
-        if len(team) > 1:
-            first_mobber = team[0]
-            next_mobber = team[1]
+        first_mobber = select_next_mobber(config)
+        config = increment_turn(config)
+        next_mobber = select_next_mobber(config)
 
         runAll(
             [
@@ -77,10 +74,7 @@ elif args.command == "continue":
         set_config(MOBN_CONFIG_PATH, config)
         team = config["team_members"]
 
-        next_mobber = None
-        if team:
-            next_mobber = team[config["turn"]]
-
+        next_mobber = select_next_mobber(config)
         runAll(start_turn(workstream_name))
         if next_mobber:
             say("It is {}s turn".format(next_mobber)).run()
@@ -97,17 +91,7 @@ elif args.command == "workstream":
     print(get_workstream_name().run())
 
 elif args.command == "help":
-    print("""
-    mobn new -> create a new mob session on your configured workstream
-    mobn start -> alias for `mobn new`
-    mobn continue -> pulls the current workstream onto your local machine and sets a timer
-    mobn done <new branch name> -> puts all of the worksteam's commits onto a new branch so you can create a PR.
-    mobn team <space delimited list of names> -> let mobn know who is working in this mob
-    mobn skip -> tells mobbing to skip to the next team member
-    mobn config -> show me the current config!
-    mobn hello -> hello, world!
-    mobn help -> you are here!
-    """)
+    print(json.dumps(get_help(), indent=4))
 
 elif args.command == "config":
     config = get_config("mobn.config").run()
@@ -124,10 +108,7 @@ elif args.command == "skip":
     config = increment_turn(config)
     set_config(MOBN_CONFIG_PATH, config).run()
 
-    team = config["team_members"]
-    next_mobber = None
-    if team:
-        next_mobber = team[config["turn"]]
+    next_mobber = select_next_mobber(config)
     if next_mobber:
         say("It is {}s turn".format(next_mobber)).run()
 
