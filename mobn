@@ -122,6 +122,14 @@ elif args.command == "skip":
     config = get_config("mobn.config").run()
     config = increment_turn(config)
     set_config(MOBN_CONFIG_PATH, config).run()
+
+    team = config["team_members"]
+    next_mobber = None
+    if team:
+        next_mobber = team[config["turn"]]
+    if next_mobber:
+        say("It is {}s turn".format(next_mobber)).run()
+
     print(json.dumps(config, indent=4))
 
 elif args.command == "hello":
