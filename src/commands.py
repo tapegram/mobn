@@ -22,7 +22,7 @@ def start_turn(workstream):
     return [
         say("Time start!"),
         output("Timer started - lets get mobbing!"),
-        sleep(5),
+        sleep(600),
         say('Time up!'),
         add_all(),
         commit_all(),
