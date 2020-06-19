@@ -56,7 +56,11 @@ if args.command == "new" or args.command == "start":
             ] +
             [set_config(MOBN_CONFIG_PATH, config)] +
             new(workstream_name) +
-            start_turn(workstream_name)
+            start_turn(workstream_name) +
+            [
+                say("It is {}s turn".format(next_mobber))
+                if next_mobber else NullEffect()
+            ]
         )
 
 
