@@ -70,6 +70,8 @@ elif args.command == "continue":
         print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
 
     else:
+        load_workstream(workstream_name).run()
+
         config = get_config("mobn.config").run()
         config = increment_turn(config)
         set_config(MOBN_CONFIG_PATH, config)
@@ -79,14 +81,9 @@ elif args.command == "continue":
         if team:
             next_mobber = team[config["turn"]]
 
-        runAll(
-            load_workstream(workstream_name) +
-            start_turn(workstream_name) +
-            [
-                say("It is {}s turn".format(next_mobber))
-                if next_mobber else NullEffect()
-            ]
-        )
+        start_turn(workstream_name).run()
+        if next_mobber:
+            say("It is {}s turn".format(next_mobber)).run()
 
 elif args.command == "done":
     workstream_name = get_workstream_name().run()
