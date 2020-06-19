@@ -66,3 +66,19 @@ def finish(workstream, branchName):
 
         output("ready to open PR!"),
     ]
+
+
+def set_team(team_members, config):
+    new_config = config.copy()
+    new_config["team_members"] = team_members
+    return new_config
+
+
+def increment_turn(config):
+    new_config = config.copy()
+
+    if len(new_config["team_members"]) == 0:
+        return new_config
+
+    new_config["turn"] = (new_config.get("turn", 0) + 1) % len(new_config["team_members"])
+    return new_config
