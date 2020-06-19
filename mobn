@@ -71,7 +71,7 @@ elif args.command == "continue":
 
         config = get_config("mobn.config").run()
         config = increment_turn(config)
-        set_config(MOBN_CONFIG_PATH, config)
+        set_config(MOBN_CONFIG_PATH, config).run()
         team = config["team_members"]
 
         next_mobber = select_next_mobber(config)
