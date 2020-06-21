@@ -26,7 +26,7 @@ def runAll(effects):
         effect.run()
 
 
-def command_handler(command, *arguments):
+def command_handler(command, arguments):
     if command == "new" or command == "start":
         workstream_name = get_workstream_name().run()
         if not workstream_name:
