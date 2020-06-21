@@ -5,13 +5,13 @@ from src.domain.git import GitEffect
 from src.domain.output import OutputEffect
 from src.domain.say import VoiceEffect
 from src.domain.sleep import SleepEffect
-from src.finish import finish
-from src.increment_turn import increment_turn
-from src.load_workstream import load_workstream
-from src.new import new
-from src.select_next_mobber import select_next_mobber
-from src.set_team import set_team
-from src.start_turn import start_turn
+from src.commands.finish import finish
+from src.commands.increment_turn import increment_turn
+from src.commands.load_workstream import load_workstream
+from src.commands.new import new
+from src.commands.select_next_mobber import select_next_mobber
+from src.commands.set_team import set_team
+from src.commands.start_turn import start_turn
 
 
 class TestCommands(unittest.TestCase):

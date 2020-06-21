@@ -4,14 +4,14 @@ import argparse
 import json
 from src.domain.config import get_workstream_name, get_config, set_config, remove_config
 from src.domain.say import say
-from src.finish import finish
-from src.get_help import get_help
-from src.increment_turn import increment_turn
-from src.load_workstream import load_workstream
-from src.new import new
-from src.select_next_mobber import select_next_mobber
-from src.set_team import set_team
-from src.start_turn import start_turn
+from src.commands.finish import finish
+from src.commands.get_help import get_help
+from src.commands.increment_turn import increment_turn
+from src.commands.load_workstream import load_workstream
+from src.commands.new import new
+from src.commands.select_next_mobber import select_next_mobber
+from src.commands.set_team import set_team
+from src.commands.start_turn import start_turn
 
 parser = argparse.ArgumentParser(
     description='mobn git handoff tool'
