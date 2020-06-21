@@ -108,7 +108,7 @@ def command_handler(command, *arguments):
         workstream_name = get_workstream_name().run()
         if not workstream_name:
             print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
-        load_branch_into_workstream(workstream_name, arguments[0])
+        runAll(load_branch_into_workstream(workstream_name, arguments[0]))
 
     elif command == "hello":
         print("Hello, World")
