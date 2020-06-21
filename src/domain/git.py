@@ -21,8 +21,11 @@ def create_branch(name):
     return GitEffect("git checkout -b {}".format(name))
 
 
-def delete_branch(name):
-    return GitEffect("git branch -d {}".format(name))
+def delete_branch(name, force=False):
+    if force:
+        return GitEffect("git branch -D {}".format(name))
+    else:
+        return GitEffect("git branch -d {}".format(name))
 
 
 def add_all():
