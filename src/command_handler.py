@@ -1,4 +1,6 @@
 import json
+
+from src.commands.load_branch_into_workstream import load_branch_into_workstream
 from src.domain.config import get_workstream_name, get_config, set_config, remove_config
 from src.domain.say import say
 from src.commands.finish import finish
@@ -101,6 +103,12 @@ def command_handler(command, *arguments):
             say("It is {}s turn".format(next_mobber)).run()
 
         print(json.dumps(config, indent=4))
+
+    elif command == "load":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+        load_branch_into_workstream(workstream_name, arguments[0])
 
     elif command == "hello":
         print("Hello, World")
