@@ -18,4 +18,4 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-command_handler(args.command, args.arguements)
+command_handler(args.command, args.arguments)
