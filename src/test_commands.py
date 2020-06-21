@@ -1,6 +1,7 @@
 import unittest
 
-from src.commands import new, start_turn, load_workstream, finish
+from src.commands import new, start_turn, load_workstream, finish, set_team, increment_turn, select_next_mobber
+from src.config import DEFAULT_CONFIG
 from src.git import GitEffect
 from src.output import OutputEffect
 from src.say import VoiceEffect
@@ -149,7 +150,7 @@ class TestCommands(unittest.TestCase):
             "pulling workstream..."
         )
 
-    def test_done(self):
+    def test_finish(self):
         results = finish("matcha", "branchName")
         self.assertEqual(
             len(results),
@@ -240,4 +241,75 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             successOutputEffect.message,
             "ready to open PR!"
+        )
+
+    def test_set_team(self):
+        self.assertEqual(
+            set_team(["Joe", "Sarah"], DEFAULT_CONFIG),
+            dict(
+                turn=0,
+                team_members=["Joe", "Sarah"]
+            )
+        )
+
+    def test_overwrite_set_team(self):
+        config = set_team(["Joe", "Sarah"], DEFAULT_CONFIG)
+        self.assertEqual(
+            set_team(["Emma", "Sheila"], config),
+            dict(
+                turn=0,
+                team_members=["Emma", "Sheila"]
+            )
+        )
+
+    def test_increment_turn_with_team_members(self):
+        config = set_team(["Joe", "Sarah"], DEFAULT_CONFIG)
+        self.assertEqual(
+            increment_turn(config),
+            dict(
+                turn=1,
+                team_members=["Joe", "Sarah"]
+            )
+        )
+
+    def test_increment_turn_with_no_team_members(self):
+        self.assertEqual(
+            increment_turn(DEFAULT_CONFIG),
+            DEFAULT_CONFIG
+        )
+
+    def test_increment_turn_rolls_over(self):
+        config = set_team(["Joe", "Sarah"], DEFAULT_CONFIG)
+        self.assertEqual(
+            increment_turn(increment_turn(config)),
+            dict(
+                turn=0,
+                team_members=["Joe", "Sarah"]
+            )
+        )
+
+    def test_select_next_mobber(self):
+        config = set_team(["Joe", "Sarah"], DEFAULT_CONFIG)
+        self.assertEqual(
+            select_next_mobber(config),
+            "Joe"
+        )
+        self.assertEqual(
+            select_next_mobber(
+                increment_turn(config)
+            ),
+            "Sarah"
+        )
+        self.assertEqual(
+            select_next_mobber(
+                increment_turn(
+                    increment_turn(config)
+                )
+            ),
+            "Joe"
+        )
+
+    def test_select_next_mobber_with_empty_team(self):
+        self.assertIsNone(
+            select_next_mobber(DEFAULT_CONFIG)
         )
