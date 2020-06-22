@@ -9,12 +9,42 @@ class TestNew(unittest.TestCase):
         results = new("branchName")
         self.assertEqual(
             len(results),
-            1
+            5
         )
 
-        create_branch_effect = results[0]
-        self.assertIsInstance(create_branch_effect, GitEffect)
+        (
+            checkoutMaster,
+            pull,
+            deleteExistingWorkstream,
+            deleteRemoteWorkstream,
+            createNewWorkstream,
+        ) = results
+
+        self.assertIsInstance(checkoutMaster, GitEffect)
         self.assertEqual(
-            create_branch_effect.command,
+            checkoutMaster.command,
+            "git checkout master"
+        )
+
+        self.assertIsInstance(pull, GitEffect)
+        self.assertEqual(
+            pull.command,
+            "git pull origin"
+        )
+        self.assertIsInstance(deleteExistingWorkstream, GitEffect)
+        self.assertEqual(
+            deleteExistingWorkstream.command,
+            "git branch -D branchName"
+        )
+
+        self.assertIsInstance(deleteRemoteWorkstream, GitEffect)
+        self.assertEqual(
+            deleteRemoteWorkstream.command,
+            "git push origin :branchName"
+        )
+
+        self.assertIsInstance(createNewWorkstream, GitEffect)
+        self.assertEqual(
+            createNewWorkstream.command,
             "git checkout -b branchName"
         )
