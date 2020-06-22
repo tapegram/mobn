@@ -18,6 +18,10 @@ def branch():
     return GitEffect("git branch")
 
 
+def stash():
+    return GitEffect("git stash --include-untracked")
+
+
 def create_branch(name):
     return GitEffect("git checkout -b {}".format(name))
 
