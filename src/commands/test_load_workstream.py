@@ -6,14 +6,15 @@ from src.domain.output import OutputEffect
 
 
 class TestLoadWorkstream(unittest.TestCase):
-    def load_workstream(self):
+    def test_load_workstream(self):
         results = load_workstream("branchName")
         self.assertEqual(
             len(results),
-            6
+            7
         )
 
         (
+            stash,
             checkoutMasterEffect,
             pullEffect1,
             pullingMasterOutputEffect,
@@ -21,6 +22,12 @@ class TestLoadWorkstream(unittest.TestCase):
             pullEffect2,
             pullingWorkstreamOutputEffect,
         ) = results
+
+        self.assertIsInstance(stash, GitEffect)
+        self.assertEqual(
+            stash.command,
+            "git stash --include-untracked"
+        )
 
         self.assertIsInstance(checkoutMasterEffect, GitEffect)
         self.assertEqual(
