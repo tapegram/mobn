@@ -51,7 +51,6 @@ def command_handler(command, arguments):
                 ]
             )
 
-
     elif command == "continue":
         workstream_name = get_workstream_name().run()
         if not workstream_name:

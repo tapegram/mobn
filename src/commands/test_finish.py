@@ -10,7 +10,7 @@ class TestCommands(unittest.TestCase):
         results = finish("matcha", "branchName")
         self.assertEqual(
             len(results),
-            12
+            13
         )
 
         (
@@ -24,6 +24,7 @@ class TestCommands(unittest.TestCase):
             cleaningUpOutputEffect,
             checkoutMasterEffect,
             deleteBranchEffect,
+            deleteRemoteBranch,
             pullEffect,
             successOutputEffect,
         ) = results
@@ -85,6 +86,12 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             deleteBranchEffect.command,
             "git branch -D matcha"
+        )
+
+        self.assertIsInstance(deleteRemoteBranch, GitEffect)
+        self.assertEqual(
+            deleteRemoteBranch.command,
+            "git push origin :matcha"
         )
 
         self.assertIsInstance(pullEffect, GitEffect)

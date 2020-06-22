@@ -29,6 +29,10 @@ def delete_branch(name, force=False):
         return GitEffect("git branch -d {}".format(name))
 
 
+def delete_remote_branch(name):
+    return GitEffect("git push origin :{}".format(name))
+
+
 def add_all():
     return GitEffect("git add .")
 
