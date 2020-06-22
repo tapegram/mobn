@@ -19,7 +19,7 @@ def finish(workstream, branchName):
         # cleanup
         output("cleaning up..."),
         checkout("master"),
-        delete_branch(workstream),
+        delete_branch(workstream, force=True),
         pull(),
 
         output("ready to open PR!"),

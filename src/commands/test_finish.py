@@ -84,7 +84,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(deleteBranchEffect, GitEffect)
         self.assertEqual(
             deleteBranchEffect.command,
-            "git branch -d matcha"
+            "git branch -D matcha"
         )
 
         self.assertIsInstance(pullEffect, GitEffect)
