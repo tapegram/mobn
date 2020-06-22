@@ -7,9 +7,10 @@ class GitEffect(object):
 
     def run(self):
         print(self.command)
-        process = Popen([self.command], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
-        output, _ = process.communicate()
+        process = Popen([self.command], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        output, errput = process.communicate()
         print(output.decode("utf-8"))
+        print(errput.decode("utf-8"))
         return output
 
 
