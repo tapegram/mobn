@@ -98,7 +98,7 @@ def command_handler(command, arguments):
         config = get_config("mobn.config").run()
         config = set_team(arguments, config)
         set_config(MOBN_CONFIG_PATH, config).run()
-        runAll(update_config(MOBN_CONFIG_PATH, config))
+        runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
         print(json.dumps(config, indent=4))
 
     elif command == "shuffle-team":
@@ -109,7 +109,7 @@ def command_handler(command, arguments):
         config = get_config("mobn.config").run()
         config = shuffle_order(config)
         set_config(MOBN_CONFIG_PATH, config).run()
-        runAll(update_config(MOBN_CONFIG_PATH, config))
+        runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
         print(json.dumps(config, indent=4))
 
     elif command == "add-member":
@@ -120,7 +120,7 @@ def command_handler(command, arguments):
         config = get_config("mobn.config").run()
         config = add_to_team(arguments[0], config)
         set_config(MOBN_CONFIG_PATH, config).run()
-        runAll(update_config(MOBN_CONFIG_PATH, config))
+        runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
         print(json.dumps(config, indent=4))
 
     elif command == "remove_member":
@@ -131,7 +131,7 @@ def command_handler(command, arguments):
         config = get_config("mobn.config").run()
         config = remove_from_team(arguments[0], config)
         set_config(MOBN_CONFIG_PATH, config).run()
-        runAll(update_config(MOBN_CONFIG_PATH, config))
+        runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
         print(json.dumps(config, indent=4))
 
     elif command == "skip":
@@ -142,7 +142,7 @@ def command_handler(command, arguments):
         config = get_config("mobn.config").run()
         config = increment_turn(config)
         set_config(MOBN_CONFIG_PATH, config).run()
-        runAll(update_config(MOBN_CONFIG_PATH, config))
+        runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
 
         next_mobber = select_next_mobber(config)
         if next_mobber:
