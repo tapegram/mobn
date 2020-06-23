@@ -123,7 +123,7 @@ def command_handler(command, arguments):
         runAll(update_config(workstream_name, MOBN_CONFIG_PATH))
         print(json.dumps(config, indent=4))
 
-    elif command == "remove_member":
+    elif command == "remove-member":
         workstream_name = get_workstream_name().run()
         if not workstream_name:
             print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
