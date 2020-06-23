@@ -41,6 +41,10 @@ def add_all():
     return GitEffect("git add .")
 
 
+def add(path):
+    return GitEffect("git add {}".format(path))
+
+
 def commit_all(message="wip"):
     return GitEffect("git commit -m \"{}\"".format(message))
 
