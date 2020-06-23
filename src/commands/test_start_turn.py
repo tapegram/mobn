@@ -12,13 +12,15 @@ class TestCommands(unittest.TestCase):
         results = start_turn("matcha")
         self.assertEqual(
             len(results),
-            10
+            12
         )
 
         (
             sayTimeStartEffect,
             timerStartOuputEffect,
             sleepEffect,
+            saySaveYourWorEffect,
+            sleepEffect2,
             sayTimeUpEffect,
             addAllEffect,
             commitAllEffect,
@@ -44,6 +46,18 @@ class TestCommands(unittest.TestCase):
         self.assertEqual(
             sleepEffect.length,
             600
+        )
+
+        self.assertIsInstance(saySaveYourWorEffect, VoiceEffect)
+        self.assertEqual(
+            saySaveYourWorEffect.phrase,
+            "Save all your work now!!!"
+        )
+
+        self.assertIsInstance(sleepEffect2, SleepEffect)
+        self.assertEqual(
+            sleepEffect2.length,
+            20
         )
 
         self.assertIsInstance(sayTimeUpEffect, VoiceEffect)
