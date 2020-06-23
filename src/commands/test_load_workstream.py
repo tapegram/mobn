@@ -10,7 +10,7 @@ class TestLoadWorkstream(unittest.TestCase):
         results = load_workstream("branchName")
         self.assertEqual(
             len(results),
-            7
+            8
         )
 
         (
@@ -18,6 +18,7 @@ class TestLoadWorkstream(unittest.TestCase):
             checkoutMasterEffect,
             pullEffect1,
             pullingMasterOutputEffect,
+            deleteBranch,
             checkoutBranchEffect,
             pullEffect2,
             pullingWorkstreamOutputEffect,
@@ -45,6 +46,12 @@ class TestLoadWorkstream(unittest.TestCase):
         self.assertEqual(
             pullingMasterOutputEffect.message,
             "pulling master..."
+        )
+
+        self.assertIsInstance(deleteBranch, GitEffect)
+        self.assertEqual(
+            deleteBranch.command,
+            "git branch -D branchName"
         )
 
         self.assertIsInstance(checkoutBranchEffect, GitEffect)
