@@ -1,6 +1,10 @@
 import json
 
+from src.commands.add_to_team import add_to_team
 from src.commands.load_branch_into_workstream import load_branch_into_workstream
+from src.commands.remove_from_team import remove_from_team
+from src.commands.shuffle_order import shuffle_order
+from src.commands.update_config import update_config
 from src.domain.config import get_workstream_name, get_config, set_config, remove_config
 from src.domain.say import say
 from src.commands.finish import finish
@@ -87,15 +91,58 @@ def command_handler(command, arguments):
         print(json.dumps(config, indent=4))
 
     elif command == "team":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+
         config = get_config("mobn.config").run()
         config = set_team(arguments, config)
         set_config(MOBN_CONFIG_PATH, config).run()
+        runAll(update_config(MOBN_CONFIG_PATH, config))
+        print(json.dumps(config, indent=4))
+
+    elif command == "shuffle-team":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+
+        config = get_config("mobn.config").run()
+        config = shuffle_order(config)
+        set_config(MOBN_CONFIG_PATH, config).run()
+        runAll(update_config(MOBN_CONFIG_PATH, config))
+        print(json.dumps(config, indent=4))
+
+    elif command == "add-member":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+
+        config = get_config("mobn.config").run()
+        config = add_to_team(arguments[0], config)
+        set_config(MOBN_CONFIG_PATH, config).run()
+        runAll(update_config(MOBN_CONFIG_PATH, config))
+        print(json.dumps(config, indent=4))
+
+    elif command == "remove_member":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+
+        config = get_config("mobn.config").run()
+        config = remove_from_team(arguments[0], config)
+        set_config(MOBN_CONFIG_PATH, config).run()
+        runAll(update_config(MOBN_CONFIG_PATH, config))
         print(json.dumps(config, indent=4))
 
     elif command == "skip":
+        workstream_name = get_workstream_name().run()
+        if not workstream_name:
+            print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
+
         config = get_config("mobn.config").run()
         config = increment_turn(config)
         set_config(MOBN_CONFIG_PATH, config).run()
+        runAll(update_config(MOBN_CONFIG_PATH, config))
 
         next_mobber = select_next_mobber(config)
         if next_mobber:

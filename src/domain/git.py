@@ -49,6 +49,15 @@ def commit_all(message="wip"):
     return GitEffect("git commit -m \"{}\"".format(message))
 
 
+def commit(path, message="wip"):
+    return GitEffect(
+        "git commit {} -m \"{}\"".format(
+            path,
+            message,
+        )
+    )
+
+
 def push_origin_upstream(branch_name):
     return GitEffect("git push -u origin {}".format(branch_name))
 
