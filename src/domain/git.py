@@ -46,12 +46,12 @@ def add(path):
 
 
 def commit_all(message="wip"):
-    return GitEffect("git commit -m \"{}\"".format(message))
+    return GitEffect("git commit --no-verify -m \"{}\"".format(message))
 
 
 def commit(path, message="wip"):
     return GitEffect(
-        "git commit {} -m \"{}\"".format(
+        "git commit {} --no-verify -m \"{}\"".format(
             path,
             message,
         )
