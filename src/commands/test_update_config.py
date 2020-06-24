@@ -29,7 +29,7 @@ class TestUpdateConfig(unittest.TestCase):
         self.assertIsInstance(commit, GitEffect)
         self.assertEqual(
             commit.command,
-            "git commit {} -m \"updating config\"".format(
+            "git commit {} --no-verify -m \"updating config\"".format(
                 MOBN_CONFIG_PATH
             )
         )

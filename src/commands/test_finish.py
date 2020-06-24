@@ -44,7 +44,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(commitAllEffect, GitEffect)
         self.assertEqual(
             commitAllEffect.command,
-            "git commit -m \"wip\""
+            "git commit --no-verify -m \"wip\""
         )
 
         self.assertIsInstance(pushAllEffect, GitEffect)
