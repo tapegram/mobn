@@ -33,13 +33,13 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(sayTimeStartEffect, VoiceEffect)
         self.assertEqual(
             sayTimeStartEffect.phrase,
-            "Time start!"
+            "The timer has started."
         )
 
         self.assertIsInstance(timerStartOuputEffect, OutputEffect)
         self.assertEqual(
             timerStartOuputEffect.message,
-            "Timer started - lets get mobbing!"
+            "The timer has started. Let's get mobbing."
         )
 
         self.assertIsInstance(sleepEffect, SleepEffect)
@@ -51,7 +51,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(saySaveYourWorEffect, VoiceEffect)
         self.assertEqual(
             saySaveYourWorEffect.phrase,
-            "Save all your work now!!!"
+            "Please, save all your work at your earliest convenience."
         )
 
         self.assertIsInstance(sleepEffect2, SleepEffect)
@@ -63,7 +63,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(sayTimeUpEffect, VoiceEffect)
         self.assertEqual(
             sayTimeUpEffect.phrase,
-            "Time up!"
+            "Your time is up."
         )
 
         self.assertIsInstance(addAllEffect, GitEffect)
