@@ -1,7 +1,6 @@
 from subprocess import Popen, PIPE, STDOUT
 
 import os
-print()
 
 class VoiceEffect(object):
     def __init__(self, phrase):
