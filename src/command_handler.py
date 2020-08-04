@@ -43,14 +43,14 @@ def command_handler(command, arguments):
 
             runAll(
                 [
-                    say("It is {}s turn".format(first_mobber))
+                    say("It is {}'s turn".format(first_mobber))
                     if first_mobber else NullEffect()
                 ] +
                 [set_config(MOBN_CONFIG_PATH, config)] +
                 new(workstream_name) +
                 start_turn(workstream_name) +
                 [
-                    say("It is {}s turn".format(next_mobber))
+                    say("It is {}'s turn".format(next_mobber))
                     if next_mobber else NullEffect()
                 ]
             )
@@ -70,7 +70,7 @@ def command_handler(command, arguments):
             next_mobber = select_next_mobber(config)
             runAll(start_turn(workstream_name))
             if next_mobber:
-                say("It is {}s turn".format(next_mobber)).run()
+                say("It is {}'s turn".format(next_mobber)).run()
 
     elif command == "done":
         workstream_name = get_workstream_name().run()
@@ -146,7 +146,7 @@ def command_handler(command, arguments):
 
         next_mobber = select_next_mobber(config)
         if next_mobber:
-            say("It is {}s turn".format(next_mobber)).run()
+            say("It is {}'s turn".format(next_mobber)).run()
 
         print(json.dumps(config, indent=4))
 
