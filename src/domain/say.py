@@ -7,7 +7,7 @@ class VoiceEffect(object):
         self.phrase = phrase
 
     def run(self):
-        voice = os.environ['MOBN_VOICE'] or "Daniel"
+        voice = os.environ.get('MOBN_VOICE') or "Daniel"
         process = Popen(["say -v {} {}".format(voice, self.phrase)], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, )
         output, _ = process.communicate()
         return output
