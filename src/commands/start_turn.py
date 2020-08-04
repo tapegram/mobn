@@ -6,12 +6,12 @@ from src.domain.sleep import sleep
 
 def start_turn(workstream):
     return [
-        say("Time start!"),
-        output("Timer started - lets get mobbing!"),
+        say("The timer has started."),
+        output("The timer has started. Let's get mobbing."),
         sleep(600),
-        say('Save all your work now!!!'),
+        say("Please, save all your work at your earliest convenience."),
         sleep(20),
-        say('Time up!'),
+        say("Your time is up."),
         add_all(),
         commit_all(),
         push_origin_upstream(workstream),
