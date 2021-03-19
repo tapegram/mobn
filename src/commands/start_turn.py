@@ -4,11 +4,11 @@ from src.domain.say import say
 from src.domain.sleep import sleep
 
 
-def start_turn(workstream):
+def start_turn(workstream, timer_seconds):
     return [
         say("The timer has started."),
         output("The timer has started. Let's get mobbing."),
-        sleep(600),
+        sleep(timer_seconds),
         say("Please, save all your work at your earliest convenience."),
         sleep(20),
         say("Your time is up."),

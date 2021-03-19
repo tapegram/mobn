@@ -40,7 +40,7 @@ def command_handler(command, arguments):
             first_mobber = select_next_mobber(config)
             config = increment_turn(config)
             next_mobber = select_next_mobber(config)
-
+            timer_seconds = arguments[0] * 60 if arguments[0] else 600
             runAll(
                 [
                     say("It is {}'s turn".format(first_mobber))
@@ -48,7 +48,7 @@ def command_handler(command, arguments):
                 ] +
                 [set_config(MOBN_CONFIG_PATH, config)] +
                 new(workstream_name) +
-                start_turn(workstream_name) +
+                start_turn(workstream_name, timer_seconds=timer_seconds) +
                 [
                     say("It is {}'s turn".format(next_mobber))
                     if next_mobber else NullEffect()
