@@ -9,7 +9,7 @@ from src.domain.sleep import SleepEffect
 
 class TestCommands(unittest.TestCase):
     def test_start_turn(self):
-        results = start_turn("matcha")
+        results = start_turn("matcha", 900)
         self.assertEqual(
             len(results),
             12
@@ -45,7 +45,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsInstance(sleepEffect, SleepEffect)
         self.assertEqual(
             sleepEffect.length,
-            600
+            900
         )
 
         self.assertIsInstance(saySaveYourWorEffect, VoiceEffect)
