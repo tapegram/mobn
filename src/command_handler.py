@@ -37,20 +37,24 @@ def command_handler(command, arguments):
             print("No workstream found! try `export MOBN_WORKSTREAM_NAME=<chosen name>`")
         else:
             config = get_config("mobn.config").run()
+
+            # Arguments should be a list of team members
+            if (arguments): 
+                config = set_team(arguments, config)
             first_mobber = select_next_mobber(config)
             config = increment_turn(config)
             next_mobber = select_next_mobber(config)
 
             runAll(
                 [
-                    say("It is {}'s turn".format(first_mobber))
+                    say("It is {}s turn".format(first_mobber))
                     if first_mobber else NullEffect()
                 ] +
                 [set_config(MOBN_CONFIG_PATH, config)] +
                 new(workstream_name) +
                 start_turn(workstream_name) +
                 [
-                    say("It is {}'s turn".format(next_mobber))
+                    say("It is {}s turn".format(next_mobber))
                     if next_mobber else NullEffect()
                 ]
             )

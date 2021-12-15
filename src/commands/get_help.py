@@ -1,6 +1,6 @@
 def get_help():
     return {
-        "mobn new": "create a new mob session on your configured workstream",
+        "mobn new <optional: space delimited list of names>": "create a new mob session on your configured workstream. optional names will be set as the the team members",
         "mobn start": "alias for `mobn new`",
         "mobn continue": "pulls the current workstream onto your local machine and sets a timer",
         "mobn done <new branch name>": "puts all of the worksteam's commits onto a new branch so you can create a PR.",
