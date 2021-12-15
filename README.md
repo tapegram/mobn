@@ -15,10 +15,10 @@ export MOBN_WORKSTREAM_NAME=matcha-mob
 # Usage
 
 ```bash
-mobn new       # start a new work stream
-mobn continue  # start your turn on an already created work stream
-mobn done      # ready to create PR
-mobn help      # for help!
+mobn new        # start a new work stream
+mobn continue   # start your turn on an already created work stream
+mobn done pr123 # ready to create PR, put all of the commits on to a new branch called `pr123`
+mobn help       # for help!
 ```
 
 Additionally, you can provide the team members when starting the session so the mob tool will take care of whos turn it is.
